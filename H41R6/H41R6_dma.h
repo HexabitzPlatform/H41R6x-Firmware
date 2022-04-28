@@ -39,6 +39,9 @@ extern void DMA_MSG_TX_UnSetup(UART_HandleTypeDef *huart);
 extern void CRC_Init(void);
 extern uint8_t CalculateCRC8(uint8_t pBuffer[], uint16_t size);
 void StopMsgDMA(uint8_t port);
+extern void StopStreamDMA(uint8_t port);
+extern void SwitchMsgDMAToStream(uint8_t port);
+extern void SwitchStreamDMAToMsg(uint8_t port);
 #ifdef __cplusplus
 }
 #endif
