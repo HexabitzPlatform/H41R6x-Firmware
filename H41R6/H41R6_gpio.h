@@ -1,4 +1,4 @@
-/* BitzOS (BOS) V0.2.6 - Copyright (C) 2017-2022 Hexabitz
+/* BitzOS (BOS) V0.2.7 - Copyright (C) 2017-2022 Hexabitz
  All rights reserved
 
  File Name     : H41R6_gpio.h
