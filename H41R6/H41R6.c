@@ -271,15 +271,15 @@ uint8_t ClearROtopology(void){
  */
 void Module_Peripheral_Init(void) {
 	/* Array ports */
-	MX_USART1_UART_Init();
-
-	MX_USART2_UART_Init();
-
-	MX_USART3_UART_Init();
-
-	MX_UART4_UART_Init();
-
-	MX_UART5_UART_Init();
+//	MX_USART1_UART_Init();
+//
+//	MX_USART2_UART_Init();
+//
+//	MX_USART3_UART_Init();
+//
+//	MX_UART4_UART_Init();
+//
+//	MX_UART5_UART_Init();
 
 	MX_USART6_UART_Init();
 

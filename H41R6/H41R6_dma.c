@@ -51,71 +51,83 @@ DMA_HandleTypeDef hdma_uart5_tx;
 
 DMA_HandleTypeDef hdma_usart6_rx;
 DMA_HandleTypeDef hdma_usart6_tx;
-
+extern uint8_t w[10],a[10];
 /**
  * Enable DMA controller clock
  */
 void DMA_Init(void) {
 
-	/* DMA controller clock enable */
-	__HAL_RCC_DMA1_CLK_ENABLE();
-	__HAL_RCC_DMA2_CLK_ENABLE();
 
-	/* Initialize messaging RX DMAs x 6 - Update for non-standard MCUs */
-#ifdef _P1
-	DMA_MSG_RX_CH_Init(&msgRxDMA[0], DMA1_Stream2); /* Initialize messaging Port 1 RX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[0], DMA1_Stream4); /* Initialize messaging Port 1 TX DMA*/
-#endif
-#ifdef _P2
-	DMA_MSG_RX_CH_Init(&msgRxDMA[1], DMA1_Stream5); /* Initialize messaging Port 2 RX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[1], DMA1_Stream6); /* Initialize messaging Port 2 TX DMA*/
-#endif
-#ifdef _P3
-	DMA_MSG_RX_CH_Init(&msgRxDMA[2], DMA2_Stream1); /* Initialize messaging Port 3 RX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[2], DMA2_Stream6); /* Initialize messaging Port 3 TX DMA*/
-#endif
-#ifdef _P4
-	DMA_MSG_RX_CH_Init(&msgRxDMA[3], DMA1_Stream1); /* Initialize messaging Port 4 TX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[3], DMA1_Stream3); /* Initialize messaging Port 4 TX DMA*/
-#endif
-#ifdef _P5
-	DMA_MSG_RX_CH_Init(&msgRxDMA[4], DMA2_Stream2); /* Initialize messaging Port 5 RX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[4], DMA2_Stream7); /* Initialize messaging Port 5 TX DMA*/
-#endif
-#ifdef _P6
-	DMA_MSG_RX_CH_Init(&msgRxDMA[5], DMA1_Stream0); /* Initialize messaging Port 6 RX DMA*/
-	DMA_MSG_TX_CH_Init(&msgTxDMA[5], DMA1_Stream7); /* Initialize messaging Port 6 TX DMA*/
-#endif
+	  /* DMA controller clock enable */
+	  __HAL_RCC_DMA2_CLK_ENABLE();
+
+	  /* DMA interrupt init */
+	  /* DMA2_Stream1_IRQn interrupt configuration */
+	  HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 0, 0);
+	  HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
+
+
+
+//
+//	/* DMA controller clock enable */
+//	__HAL_RCC_DMA1_CLK_ENABLE();
+//	__HAL_RCC_DMA2_CLK_ENABLE();
+//
+//	/* Initialize messaging RX DMAs x 6 - Update for non-standard MCUs */
+//#ifdef _P1
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[0], DMA1_Stream2); /* Initialize messaging Port 1 RX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[0], DMA1_Stream4); /* Initialize messaging Port 1 TX DMA*/
+//#endif
+//#ifdef _P2
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[1], DMA1_Stream5); /* Initialize messaging Port 2 RX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[1], DMA1_Stream6); /* Initialize messaging Port 2 TX DMA*/
+//#endif
+//#ifdef _P3
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[2], DMA2_Stream1); /* Initialize messaging Port 3 RX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[2], DMA2_Stream6); /* Initialize messaging Port 3 TX DMA*/
+//#endif
+//#ifdef _P4
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[3], DMA1_Stream1); /* Initialize messaging Port 4 TX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[3], DMA1_Stream3); /* Initialize messaging Port 4 TX DMA*/
+//#endif
+//#ifdef _P5
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[4], DMA2_Stream2); /* Initialize messaging Port 5 RX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[4], DMA2_Stream7); /* Initialize messaging Port 5 TX DMA*/
+//#endif
+//#ifdef _P6
+//	DMA_MSG_RX_CH_Init(&msgRxDMA[5], DMA1_Stream0); /* Initialize messaging Port 6 RX DMA*/
+//	DMA_MSG_TX_CH_Init(&msgTxDMA[5], DMA1_Stream7); /* Initialize messaging Port 6 TX DMA*/
+//#endif
 }
 
 /* Initialize a messaging RX DMA channel  */
 void DMA_MSG_RX_CH_Init(DMA_HandleTypeDef *hDMA, DMA_Stream_TypeDef *ch) {
-	hDMA->Instance = ch;
-	hDMA->Init.Channel = SelectDMAchannel(ch);
-	hDMA->Init.Direction = DMA_PERIPH_TO_MEMORY;
-	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
-	hDMA->Init.MemInc = DMA_MINC_ENABLE;
-	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-	hDMA->Init.Mode = DMA_CIRCULAR;
-	hDMA->Init.Priority = MSG_DMA_PRIORITY;
-	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	HAL_DMA_Init(hDMA);
+//	hDMA->Instance = ch;
+//	hDMA->Init.Channel = SelectDMAchannel(ch);
+//	hDMA->Init.Direction = DMA_PERIPH_TO_MEMORY;
+//	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
+//	hDMA->Init.MemInc = DMA_MINC_ENABLE;
+//	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+//	hDMA->Init.Mode = DMA_CIRCULAR;
+//	hDMA->Init.Priority = MSG_DMA_PRIORITY;
+//	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+//	HAL_DMA_Init(hDMA);
 }
 
 /* Initialize a messaging TX DMA channel  */
 void DMA_MSG_TX_CH_Init(DMA_HandleTypeDef *hDMA, DMA_Stream_TypeDef *ch) {
-	hDMA->Instance = ch;
-	hDMA->Init.Channel = SelectDMAchannel(ch);
-	hDMA->Init.Direction = DMA_MEMORY_TO_PERIPH;
-	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
-	hDMA->Init.MemInc = DMA_MINC_ENABLE;
-	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-	hDMA->Init.Mode = DMA_NORMAL;
-	hDMA->Init.Priority = MSG_DMA_PRIORITY;
-	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	HAL_DMA_Init(hDMA);
+//	hDMA->Instance = ch;
+//	hDMA->Init.Channel = SelectDMAchannel(ch);
+//	hDMA->Init.Direction = DMA_MEMORY_TO_PERIPH;
+//	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
+//	hDMA->Init.MemInc = DMA_MINC_ENABLE;
+//	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+//	hDMA->Init.Mode = DMA_NORMAL;
+//	hDMA->Init.Priority = MSG_DMA_PRIORITY;
+//	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+//	HAL_DMA_Init(hDMA);
 
 }
 
@@ -123,17 +135,17 @@ void DMA_MSG_TX_CH_Init(DMA_HandleTypeDef *hDMA, DMA_Stream_TypeDef *ch) {
  */
 void DMA_STREAM_CH_Init(DMA_HandleTypeDef *hDMA, DMA_Stream_TypeDef *ch) {
 
-	hDMA->Instance = ch;
-	hDMA->Init.Channel = SelectDMAchannel(ch);
-	hDMA->Init.Direction = DMA_PERIPH_TO_MEMORY;
-	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
-	hDMA->Init.MemInc = DMA_MINC_DISABLE;
-	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-	hDMA->Init.Mode = DMA_CIRCULAR;
-	hDMA->Init.Priority = STREAM_DMA_PRIORITY;
-	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	HAL_DMA_Init(hDMA);
+//	hDMA->Instance = ch;
+//	hDMA->Init.Channel = SelectDMAchannel(ch);
+//	hDMA->Init.Direction = DMA_PERIPH_TO_MEMORY;
+//	hDMA->Init.PeriphInc = DMA_PINC_DISABLE;
+//	hDMA->Init.MemInc = DMA_MINC_DISABLE;
+//	hDMA->Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//	hDMA->Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+//	hDMA->Init.Mode = DMA_CIRCULAR;
+//	hDMA->Init.Priority = STREAM_DMA_PRIORITY;
+//	hDMA->Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+//	HAL_DMA_Init(hDMA);
 }
 
 uint32_t SelectDMAchannel(DMA_Stream_TypeDef *hDMA) {
@@ -203,7 +215,7 @@ void DMA_MSG_RX_Setup(UART_HandleTypeDef *huart, DMA_HandleTypeDef *hDMA) {
 
 	/* Start DMA stream	*/
 	//HAL_UART_Receive_DMA(huart, (uint8_t*) &UARTRxBuf[GetPort(huart) - 1],MSG_RX_BUF_SIZE);
-	HAL_UART_Receive_DMA(huart,(uint8_t* )&Rx_Data[GetPort(huart) - 1] , 1);	
+//	HAL_UART_Receive_DMA(huart,(uint8_t* )&Rx_Data[GetPort(huart) - 1] , 1);
 }
 
 /*-----------------------------------------------------------*/
@@ -252,7 +264,7 @@ void DMA_STREAM_Setup(UART_HandleTypeDef *huartSrc,
 
 	/* Start DMA stream	*/
 	huartSrc->gState = HAL_UART_STATE_READY;
-	HAL_UART_Receive_DMA(huartSrc, (uint8_t*) (&(huartDst->Instance->DR)), num);
+//	HAL_UART_Receive_DMA(huartSrc, (uint8_t*) (&(huartDst->Instance->DR)), num);
 }
 
 /*-----------------------------------------------------------*/

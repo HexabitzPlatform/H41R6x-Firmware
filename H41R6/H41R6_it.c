@@ -9,6 +9,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "BOS.h"
+#include "stm32f4xx_hal_dma.h"
 uint8_t temp_length[NumOfPorts] = {0};
 uint8_t temp_index[NumOfPorts] = {0};
 
@@ -16,6 +17,7 @@ uint8_t* error_restart_message = "Restarting...\r\n";
 
 /* External variables --------------------------------------------------------*/
 extern uint8_t UARTRxBuf[NumOfPorts][MSG_RX_BUF_SIZE];
+extern DMA_HandleTypeDef hdma_usart6_rx;
 //extern uint8_t UARTTxBuf[3][MSG_TX_BUF_SIZE];
 extern uint8_t UARTRxBufIndex[NumOfPorts];
 
@@ -145,6 +147,17 @@ void DMA1_Ch2_3_DMA2_Ch1_2_IRQHandler(void) {
 		HAL_DMA_IRQHandler(&msgTxDMA[0]);
 	}
 }
+void DMA2_Stream1_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA2_Stream1_IRQn 0 */
+
+  /* USER CODE END DMA2_Stream1_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart6_rx);
+  /* USER CODE BEGIN DMA2_Stream1_IRQn 1 */
+
+  /* USER CODE END DMA2_Stream1_IRQn 1 */
+}
+
 
 /*-----------------------------------------------------------*/
 
@@ -265,7 +278,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 		}
 	}
 
-		HAL_UART_Receive_DMA(huart,(uint8_t* )&Rx_Data[GetPort(huart) - 1] , 1);
+//		HAL_UART_Receive_DMA(huart,(uint8_t* )&Rx_Data[GetPort(huart) - 1] , 1);
 }
 
 
