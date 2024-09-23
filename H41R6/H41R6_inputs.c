@@ -485,11 +485,11 @@ BOS_Status RemovePortButton(uint8_t port) {
 #endif
 	} else if (huart->Instance == UART4) {
 #ifdef _Uart4
-		MX_UART4_UART_Init();
+		MX_UART4_Init();
 #endif
 	} else if (huart->Instance == UART5) {
 #ifdef _Uart5
-		MX_UART5_UART_Init();
+		MX_UART5_Init();
 #endif
 	} else if (huart->Instance == USART6) {
 #ifdef _Usart6	

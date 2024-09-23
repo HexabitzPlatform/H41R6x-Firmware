@@ -277,9 +277,9 @@ void Module_Peripheral_Init(void) {
 //
 //	MX_USART3_UART_Init();
 //
-//	MX_UART4_UART_Init();
+//	MX_UART4_Init();
 //
-//	MX_UART5_UART_Init();
+//	MX_UART5_Init();
 
 	MX_USART6_UART_Init();
 
