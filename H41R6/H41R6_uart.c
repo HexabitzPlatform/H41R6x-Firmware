@@ -30,7 +30,7 @@ extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern DMA_HandleTypeDef hdma_usart3_rx;
 extern DMA_HandleTypeDef hdma_usart6_rx;
-
+uint8_t g =0 ;
 /* USART1 init function */
 
 /* UART4 init function */
@@ -349,7 +349,11 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     hdma_usart2_rx.Init.Mode = DMA_CIRCULAR;
     hdma_usart2_rx.Init.Priority = DMA_PRIORITY_LOW;
     hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-   HAL_DMA_Init(&hdma_usart2_rx);
+   if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
+   {
+
+	   g=4;
+   }
 
     __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart2_rx);
 
@@ -577,8 +581,8 @@ HAL_StatusTypeDef readPxMutex(uint8_t port, char *buffer, uint16_t n,
 		/* Wait for the semaphore to be available. */
 		if (osSemaphoreWait(PxRxSemaphoreHandle[port], mutexTimeout) == osOK) {
 			while (result != HAL_OK && result != HAL_TIMEOUT) {
-				result = HAL_UART_Receive(GetUart(port), (uint8_t*) buffer, n,
-						portTimeout);
+//				result = HAL_UART_Receive(GetUart(port), (uint8_t*) buffer, n,
+//						portTimeout);
 			}
 			/* Give back the semaphore. */
 			osSemaphoreRelease(PxRxSemaphoreHandle[port]);

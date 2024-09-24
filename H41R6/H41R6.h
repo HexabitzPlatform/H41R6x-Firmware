@@ -118,12 +118,12 @@ extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart6;
 
 /* Define UART Init prototypes */
-extern void MX_USART1_UART_Init(void);
-extern void MX_USART2_UART_Init(void);
-extern void MX_USART3_UART_Init(void);
-extern void MX_UART4_UART_Init(void);
-extern void MX_UART5_UART_Init(void);
-extern void MX_USART6_UART_Init(void);
+//extern void MX_USART1_UART_Init(void);
+//extern void MX_USART2_UART_Init(void);
+//extern void MX_USART3_UART_Init(void);
+//extern void MX_UART4_UART_Init(void);
+//extern void MX_UART5_UART_Init(void);
+//extern void MX_USART6_UART_Init(void);
 extern void SystemClock_Config(void);
 extern void ExecuteMonitor(void);
 void Module_Peripheral_Init(void);
